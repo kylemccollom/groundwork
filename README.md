@@ -74,6 +74,7 @@ Your agent walks you through connecting Granola, picking your vault, and choosin
 - The skill never stores raw transcripts - Granola stays the source of record
 - Passwords, account numbers, and anything credential-like heard in a recording are scrubbed and never written anywhere
 - Sensitive content requires your confirmation before it’s saved - you can loosen this if you want
+- Your interpretation of relationships is kept separate from facts about people, and only ever sourced from your solo reflections
 - Everything lives in markdown files on your machine, in a folder you control
 
 **Recording other people:** You’re responsible for following your local consent laws. Many places require everyone’s consent to record a conversation.
