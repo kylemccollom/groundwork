@@ -109,9 +109,9 @@ Run only the extractions relevant to the tags. For every extracted item, keep: t
 - Never infer relationship labels or job titles not explicitly stated
 - Hypothetical examples are never facts ("imagine if it remembered my wife likes peonies" is not a fact about anyone)
 
-**To-dos** (all sessions): Things the user said they'd do, send, follow up on. Max 5 per session, ranked by confidence and deadline. Skip same-day ephemera (what to eat today). All to-dos go to confirmation - no exceptions.
+**To-dos** (all sessions): Things the user said they'd do, send, follow up on. Max 5 per session, ranked by confidence and deadline. Skip same-day ephemera (what to eat today). All to-dos go to confirmation - no exceptions. Before writing confirmed to-dos to the user's to-do app, split compound items into separate reminders when they contain independent actions, different contexts, or separable outcomes. Keep tightly-coupled action+method pairs together (for example, asking someone to do something and giving them the short script needed to do it). If the user corrects a combined reminder after creation, delete the combined reminder, add the split reminders, verify, and record the correction in state so backfills do not recreate it.
 
-**Journal** (solo reflection): See journal rules below.
+**Journal** (solo reflection): See journal rules below. First-person solo reflections should be routed to Journal first, even when they also contain ideas relevant to a topical note. A living topical note can receive a concise durable synthesis, but it is not a substitute for the journal entry.
 
 **Health/Medical** (medical tag): Doctor visits, diagnoses, medications, instructions, things to watch, plus health habits and advice received. Route into the existing `Health/` folder structure.
 
@@ -215,6 +215,8 @@ Handle these any time:
 - **"That's not a real todo"** → drop it; note in state so it isn't re-suggested.
 
 ## Operational hardening notes from real use
+
+Reference: see `references/reflection-routing-and-todo-splitting.md` for a correction case covering split reminders and solo-reflection routing.
 
 - **Messaging hygiene for chat/gateway runs:** never send internal scratch notes, tool-plan fragments, or status-thread text such as “need to check…”, “verify…”, or “next I’ll…”. Do all verification silently with tools, then send only the final user-facing digest or concise completion. This matters especially when handling confirmations, where the user expects “Done — saved B/C” rather than internal processing traces.
 - Keep a migration manifest when writing to a provisional/local vault: record every file created or updated in state so it can be replayed or moved cleanly once the user fixes the real Obsidian vault path.
