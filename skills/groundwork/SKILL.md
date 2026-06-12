@@ -64,16 +64,11 @@ When Groundwork is first configured for a user or when the vault path changes, d
 
 Reference: see `references/vault-verification-and-backfill.md` for the vault-mismatch/backfill workflow learned from a real setup session.
 
-### Local setup for this Hermes profile
+### Local setup state
 
-This installation is already configured for Kyle's Hermes default profile:
-- State file: `/Users/mervagent/.hermes/groundwork-state.json`
-- Obsidian vault: `/Users/mervagent/Documents/Obsidian Vault`
-- Granola MCP: verified available through the built-in `mcp_granola_*` tools
-- To-do app: Apple Reminders, shared visible list `To do`; still confirm every to-do before creating it
-- Digest delivery: current/origin iMessage unless the user asks otherwise
+Each installation should keep its own Groundwork state file in the agent's normal writable workspace. Store machine-specific paths, vault choices, to-do app configuration, delivery target, cron job IDs, processed session IDs, and pending confirmations there - not in this shared skill.
 
-When running this skill, read the state file first. If the vault path changes or a dependency breaks, update the state file rather than adding setup facts to memory.
+When running this skill, read the local state file first. If the vault path changes or a dependency breaks, update the state file rather than adding setup facts to durable memory or to this skill.
 
 ## Hourly run (cron) and manual triggers
 
@@ -91,7 +86,7 @@ On each run:
 
 Manual triggers: "check granola" (process last 24hrs), "process my last session" (most recent only), "what did I talk about today" (process today + return summary inline). If the user asks for a broader catch-up window ("past week", "since Monday", "while I was away"), process the whole requested window in one batch, mark every considered session processed/skipped in state, and return a concise rollup rather than per-session commentary.
 
-**Backlog/catch-up digest style:** For multi-day batches, lead with counts: sessions found, substantive notes saved, junk/fragmentary recordings skipped. Then list living notes updated in short bullets. Put user-action items last, separating confirmed-to-add tasks as numbered items and sensitive/ambiguous save decisions as lettered items. Keep the iMessage digest compact and scannable. For sensitive confirmation items, include enough specific quoted/paraphrased detail that the user can make an informed decision; do not hide it behind vague labels like “1 sensitive item” unless the user explicitly requests that privacy mode.
+**Backlog/catch-up digest style:** For multi-day batches, lead with counts: sessions found, substantive notes saved, junk/fragmentary recordings skipped. Then list living notes updated in short bullets. Put user-action items last, separating confirmed-to-add tasks as numbered items and sensitive/ambiguous save decisions as lettered items. Keep chat digests compact and scannable. For sensitive confirmation items, include enough specific quoted/paraphrased detail that the user can make an informed decision; do not hide it behind vague labels like “1 sensitive item” unless the user explicitly requests that privacy mode.
 
 ## Processing flow per session
 
@@ -221,7 +216,7 @@ Handle these any time:
 
 ## Operational hardening notes from real use
 
-- **Messaging hygiene for iMessage/gateway runs:** never send internal scratch notes, tool-plan fragments, or status-thread text such as “need to check…”, “verify…”, or “next I’ll…”. Do all verification silently with tools, then send only the final user-facing digest or concise completion. This matters especially when handling confirmations, where the user expects “Done — saved B/C” rather than internal processing traces.
+- **Messaging hygiene for chat/gateway runs:** never send internal scratch notes, tool-plan fragments, or status-thread text such as “need to check…”, “verify…”, or “next I’ll…”. Do all verification silently with tools, then send only the final user-facing digest or concise completion. This matters especially when handling confirmations, where the user expects “Done — saved B/C” rather than internal processing traces.
 - Keep a migration manifest when writing to a provisional/local vault: record every file created or updated in state so it can be replayed or moved cleanly once the user fixes the real Obsidian vault path.
 - Make writes idempotent. Before creating a session note or living-doc entry, check whether the same source session ID is already present to avoid duplicates after retries, cron reruns, or manual catch-up runs.
 - Treat `groundwork-state.json` as a first-class database, not a scratch file: track processed/skipped session IDs, pending confirmations, skipped to-dos, confirmed-but-not-yet-written items, cron job ID/status, vault path, and last successful run.

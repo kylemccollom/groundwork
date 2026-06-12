@@ -26,9 +26,9 @@ Deliver: origin/current conversation unless the user specifies another channel.
 Prompt should be self-contained and include:
 
 ```text
-Run the Groundwork hourly check for Kyle.
+Run the Groundwork hourly check for this user.
 
-Use the loaded Groundwork skill. Read `/Users/mervagent/.hermes/groundwork-state.json` first. Use Granola MCP tools to fetch sessions since `last_processed_created_at` / last check. Process only new, unprocessed sessions. Skip sessions under 2 minutes or clear junk, but mark considered session IDs in state. Write session notes and safe living-doc updates to the Obsidian vault configured in state. Do not create Apple Reminders without explicit user confirmation. Batch any confirmations into one concise iMessage digest. If there is nothing notable and no confirmations, stay silent / produce no user-facing message beyond a minimal internal final. Do not schedule other cron jobs.
+Use the loaded Groundwork skill. Read the local Groundwork state file first. Use Granola MCP tools to fetch sessions since `last_processed_created_at` / last check. Process only new, unprocessed sessions. Skip sessions under 2 minutes or clear junk, but mark considered session IDs in state. Write session notes and safe living-doc updates to the Obsidian vault configured in state. Do not create to-dos without explicit user confirmation. Batch any confirmations into one concise chat digest. If there is nothing notable and no confirmations, stay silent / produce no user-facing message beyond a minimal internal final. Do not schedule other cron jobs.
 ```
 
 Avoid hard-coding a vault path in the cron prompt unless the state file has been verified recently. Prefer “vault configured in state” so a later vault migration only needs a state update.
