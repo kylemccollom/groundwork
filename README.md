@@ -1,92 +1,100 @@
 # Groundwork
 
-**A personal memory layer built from your real life - powered by [Granola](https://granola.ai), your AI agent, and Obsidian.**
+**Record your day. Ask your agent anything about your life.**
 
-Granola is memory for your professional life. Groundwork is memory for your *actual* life.
+Most of your life happens out loud and disappears. The restaurant a friend swore by. The thing your doctor told you in the last two minutes of the appointment. The idea you talked through on a walk and never wrote down. What you promised someone you’d send them.
 
-Run Granola all day - conversations, walks where you think out loud, dinners with friends, doctor appointments - and Groundwork turns those recordings into organized, durable, queryable memory:
+Groundwork keeps it. Run [Granola](https://granola.ai) on your phone throughout your day, hand this skill to your AI agent, and it turns your recordings into notes you can actually use - then answers things like:
 
-- **People files** that fill themselves in. Every fact you learn about someone in passing - their move, their new job, their favorite restaurant - accumulates into a living profile. A personal CRM with zero data entry.
-- **A journal you never sat down to write.** Talk to yourself on a walk; Groundwork turns it into cohesive first-person prose in your voice, preserving the uncertainty you actually felt.
-- **To-dos you said out loud** and would have forgotten, surfaced for one-tap confirmation.
-- **Health, household, and project context** routed to the right living documents - your doctor's instructions, your plant care schedule, your project decisions.
-- **Recurring themes** - the decision you've circled in six different conversations without noticing.
+> *“I’m seeing Sam tonight - what’s going on in his life?”*
+> *“What gift ideas has my partner dropped in the last few months?”*
+> *“What did the doctor say about the dosage?”*
+> *“What did I promise people this week that I haven’t done?”*
 
-Then ask your agent things like:
+## What you get
 
-> *"What do I know about Sam?"*
-> *"What did that friend tell me about the slow carb diet?"*
-> *"What have I been coming back to lately?"*
-> *"What did I commit to last week that I haven't done?"*
+- **A profile of everyone in your life that writes itself.** Their new job, their move, their favorite wine - mentioned once in passing, saved forever.
+- **A journal you never sat down to write.** Think out loud on a walk; it becomes a real entry, in your voice, rambles smoothed out but nothing rewritten.
+- **To-dos you said out loud** and would have forgotten. Sent to you for one-tap approval before anything hits your task list.
+- **What the doctor actually said.** Instructions, medications, follow-ups - filed where you can find them.
+- **Patterns you can’t see from inside.** You’ve talked about quitting in six different conversations. It noticed.
 
 ## How it works
 
-This isn't an app. It's a **skill** - an operating manual you hand to an AI agent that already has tool access (Claude with MCPs, OpenClaw/Hermes, or any agent that can read Granola, write files, and message you).
-
 ```
-Granola records your day
-        ↓
-Your agent checks for new sessions (hourly + on demand)
-        ↓
-Classifies each session: conversation / solo reflection / junk
-        ↓
-Extracts: people facts · to-dos · journal prose · health · household · projects
-        ↓
-Writes immutable session notes + journal entries
-        ↓
-Messages you ONE digest: "here's what I saved, confirm these few things?"
-        ↓
-Updates living documents in your Obsidian vault
+Granola records your day (phone in your pocket)
+        ↓
+Your agent checks for new sessions every hour
+        ↓
+Pulls out what matters: people · to-dos · journal · health · projects
+        ↓
+Texts you one short digest: "saved these, confirm those?"
+        ↓
+Files everything as plain markdown in your Obsidian vault
 ```
 
-## The design principles that make it trustworthy
+That’s it. No app to check. No notes to take. You talk, you live your day, and your agent quietly gets smarter about your life.
 
-1. **Session notes are immutable.** The raw record of each session is written once and never edited. Everything is auditable.
-2. **Living documents are synthesized.** People files, health docs, themes - continuously updated from sessions, never written by hand.
-3. **Corrections are append-only retractions.** "That was wrong" never deletes - it appends a retraction. Retracted facts vanish from answers but stay in the log.
-4. **The agent never guesses when uncertain.** Unclear speaker? Ambiguous name? Sensitive claim? It asks. A missed fact is recoverable; a confident wrong fact poisons trust.
-5. **To-dos always require your confirmation.** Nothing lands in your task app without a yes.
-6. **Nothing empty is ever created.** The vault grows organically - no scaffolding of blank folders.
+Granola covers your work meetings. Groundwork covers everything else - and it reads your work meetings too, so the meeting and the walk home where you processed it land in the same place.
+
+## The rules it follows
+
+This thing handles your real life, so it’s deliberately careful:
+
+1. **It never guesses.** Unclear who was talking? Not sure if you meant it? It asks instead of saving.
+1. **Nothing hits your to-do list without a yes.**
+1. **Daily records are never edited after they’re written.** You can always see exactly what was captured.
+1. **“That was wrong” works.** Corrections stick, and corrected facts stop appearing in answers.
+1. **Sensitive stuff waits for your approval** - money, health, family, anything negative about someone. Nothing touchy gets saved silently.
+1. **Everything is plain markdown in a folder you own.** No database, no lock-in. Open it in Obsidian, grep it, sync it, leave anytime.
 
 ## Setup
 
 **You need:**
-- [Granola](https://granola.ai) installed and recording (the skill processes recordings; it doesn't make them)
-- An Obsidian vault - or just a folder; the skill will help you create one ([Obsidian](https://obsidian.md) itself is optional, it's just the nicest way to read the output)
-- An AI agent with: Granola MCP access (API-key based), file read/write, and a way to message you
+
+- [Granola](https://granola.ai) installed and recording (this skill processes recordings; it doesn’t make them)
+- A folder for your notes - the skill will create one, and [Obsidian](https://obsidian.md) is the nicest way to read it
+- An AI agent that can read Granola (API-key MCP), write files, and message you - Claude, OpenClaw, Hermes, or similar
 
 **Install:**
-1. Copy `skills/groundwork/SKILL.md` into your agent's skills directory
-2. Tell your agent: *"set up groundwork"* - it will walk you through connecting Granola, locating or creating your vault, and choosing your to-do app
-3. Run *"check granola"* once manually and review the first digest before enabling the hourly schedule
 
-**Recording tip:** Use Granola on your phone - that's what makes this work for your whole life, not just your desk. The lock-screen widget starts a session in one tap. Note that Granola is session-based, so you may need to start and stop sessions every hour or so throughout the day (some users set up hourly iOS Shortcut automations to handle this; others just start a long session in the morning and restart it a few times during the day).
+Give your agent a link to this repo and ask it to install. That’s the whole thing:
+
+```
+Install this skill and set it up for me:
+https://github.com/kylemccollom/groundwork/blob/main/SKILL.md
+```
+
+Your agent walks you through connecting Granola, picking your vault, and choosing your to-do app. Then say *“check granola”* once and review the first digest before turning on the hourly schedule.
+
+**Recording tip:** Use Granola on your phone - that’s what makes this cover your whole life, not just your desk. The lock-screen widget starts a session in one tap. Granola is session-based, so you may need to start and stop sessions every hour or so (some people automate this with iOS Shortcuts; others just restart a long session a few times a day).
 
 ## Privacy
 
-- Raw transcripts are never persisted by the skill - Granola remains the source record
-- Credentials (passwords, keys, account numbers) heard in any recording are redacted and never written anywhere
-- Sensitive content (money, legal, health, family tension, negative claims about others) defaults to requiring your confirmation before it's saved - you can loosen this
-- Your interpretation of relationships is kept separate from facts about people, and only ever sourced from your solo reflections
-- Everything lives in plain markdown files in a folder you own
+- The skill never stores raw transcripts - Granola stays the source of record
+- Passwords, account numbers, and anything credential-like heard in a recording are scrubbed and never written anywhere
+- Sensitive content requires your confirmation before it’s saved - you can loosen this if you want
+- Everything lives in markdown files on your machine, in a folder you control
 
-**Recording other people:** You are responsible for complying with your local consent laws when recording conversations. Many jurisdictions require all parties' consent.
+**Recording other people:** You’re responsible for following your local consent laws. Many places require everyone’s consent to record a conversation.
 
 ## FAQ
 
-**Why not just use Granola's own notes?** Granola is built around discrete meetings. Groundwork is built around people and time - it synthesizes *across* sessions into living documents, catches recurring themes, and writes your journal. Different product, same recordings.
+**Why not just use Granola’s notes?** Granola is for work meetings. Groundwork is for everything that would never have been captured at all - the dinner, the walk, the errand, the appointment - and it auto-processes all of it into the right places: people profiles, journal entries, to-dos, health notes.
 
-**Does this replace my note-taking?** No - it captures what you'd never have written down anyway. The conversation at dinner. The thought on the walk. The thing your doctor said that you forgot in the parking lot.
+**Is this a memory system for agents?** It’s the part those projects skip: deciding what your day actually meant. Which sentence is a fact about a friend, which is a to-do, which was a hypothetical that should never be saved. The output is plain markdown - point any tool you like at it.
 
-**What agent does this work with?** Any agent that can run skills and has the required tool access. Tested with Claude (via MCPs) and personal agents like OpenClaw and Hermes.
+**Does this replace note-taking?** It captures what you were never going to write down anyway. The dinner conversation. The parking-lot amnesia after a doctor visit. The shower thought you said out loud in the car.
+
+**What agent does this work with?** Anything that can run skills and has the tool access above. Tested with Claude (via MCPs) and personal agents like OpenClaw and Hermes.
 
 ## Repo structure
 
 ```
-skills/groundwork/SKILL.md   ← the skill: agent instructions only
-README.md                    ← this file: human setup + philosophy
+SKILL.md    ← the skill: agent instructions only
+README.md   ← this file: human setup + philosophy
 ```
 
----
+-----
 
-*Built on the idea that capture should be passive and memory should compound. The best journal is the one you never had to write.*
+*The best journal is the one you never had to write.*
